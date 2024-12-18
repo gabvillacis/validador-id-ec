@@ -1,0 +1,33 @@
+name: Publicar paquete en NPM
+
+on:
+  push:
+    tags:
+      - 'v*' # Ejecutar el workflow cuando se haga un push de un tag cuyo nombre inicia con v
+
+jobs:
+  test:
+    name: Ejecutar tests
+    uses: ./.github/workflows/test.yml
+  
+  publish:
+    name: Publica en npm
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org/'
+      
+      - name: Instalar dependencias
+        run: npm install
+      
+      - name: Publicar paquete en npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

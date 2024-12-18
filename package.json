@@ -1,5 +1,5 @@
 {
-  "name": "validador-id-ec",
+  "name": "validador-id-ec-gv",
   "version": "1.0.1",
   "description": "Validador de números de identidad en Ecuador",
   "main": "src/index.js",
